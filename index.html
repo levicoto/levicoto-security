@@ -162,15 +162,17 @@
         <form class="inquiry" action="https://formspree.io/f/mgakydpg" method="POST" accept-charset="UTF-8" aria-labelledby="inquiry-heading">
           <div class="inquiry-glow" aria-hidden="true"></div>
           <div class="mark3d" aria-hidden="true">
-            <div class="cube"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            <svg class="asterisk" viewBox="0 0 64 64" fill="none">
+              <path d="M32 10v44M12.95 21.05l38.1 21.9M12.95 42.95l38.1-21.9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+            </svg>
           </div>
           <input type="hidden" name="_subject" value="Nueva solicitud — Coto Secure">
           <input type="hidden" name="language" value="en">
           <input class="gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="inquiry-head">
             <h3 id="inquiry-heading">
-              <span class="lang-en">Tell me your situation</span>
-              <span class="lang-es">Contame tu situación</span>
+              <span class="lang-en">Tell me<br>your situation</span>
+              <span class="lang-es">Contame<br>tu situación</span>
             </h3>
           </div>
           <div class="field" data-field="name">
@@ -252,8 +254,8 @@
         </form>
         <div class="actions">
           <button type="button" class="action" data-mail>
-            <span class="lang-en">Contact me</span>
-            <span class="lang-es">Escribime</span>
+            <span class="lang-en">Email</span>
+            <span class="lang-es">Correo</span>
           </button>
           <a class="action" data-signal>Signal</a>
         </div>
