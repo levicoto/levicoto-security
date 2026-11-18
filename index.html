@@ -157,6 +157,57 @@
 
       <section class="contact" id="contact" aria-labelledby="contact-heading">
         <h2 id="contact-heading"><span class="lang-en">Contact</span><span class="lang-es">Contacto</span></h2>
+        <form class="inquiry" action="https://formspree.io/f/mgakydpg" method="POST" accept-charset="UTF-8">
+          <input type="hidden" name="_subject" value="Nueva solicitud — Coto Secure">
+          <input type="hidden" name="language" value="en">
+          <input class="gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="field">
+            <label for="inquiry-name">
+              <span class="lang-en">Name</span>
+              <span class="lang-es">Nombre</span>
+            </label>
+            <input id="inquiry-name" name="name" type="text" required autocomplete="name" autocapitalize="words">
+          </div>
+          <div class="field">
+            <label for="inquiry-contact">
+              <span class="lang-en">How to reach you (email, Signal or phone)</span>
+              <span class="lang-es">Cómo contactarte (correo, Signal o teléfono)</span>
+            </label>
+            <input id="inquiry-contact" name="contact" type="text" required autocapitalize="off" autocorrect="off" spellcheck="false">
+          </div>
+          <div class="field">
+            <label for="inquiry-situation">
+              <span class="lang-en">Your situation</span>
+              <span class="lang-es">Tu situación</span>
+            </label>
+            <textarea id="inquiry-situation" name="situation" rows="5" required></textarea>
+          </div>
+          <div class="field">
+            <label for="inquiry-service">
+              <span class="lang-en">Service of interest</span>
+              <span class="lang-es">Servicio que te interesa</span>
+            </label>
+            <select id="inquiry-service" name="service" required>
+              <option value="" selected disabled hidden></option>
+              <option value="Exposure Assessment" data-en="Exposure Assessment" data-es="Diagnóstico de Exposición">Exposure Assessment</option>
+              <option value="Personal Hardening" data-en="Personal Hardening" data-es="Blindaje Personal">Personal Hardening</option>
+              <option value="Incident Response" data-en="Incident Response" data-es="Respuesta a Incidentes">Incident Response</option>
+              <option value="Not sure" data-en="Not sure" data-es="No estoy seguro">Not sure</option>
+            </select>
+          </div>
+          <button type="submit" class="action">
+            <span class="lang-en">Send</span>
+            <span class="lang-es">Enviar</span>
+          </button>
+          <p class="form-status" data-success role="status" tabindex="-1" hidden>
+            <span class="lang-en">Thanks, I'll get back to you soon.</span>
+            <span class="lang-es">Gracias, te respondo pronto.</span>
+          </p>
+          <p class="form-status" data-error role="alert" tabindex="-1" hidden>
+            <span class="lang-en">It didn't send. <a class="fallback" href="#contact">Contact me by email.</a></span>
+            <span class="lang-es">No se envió. <a class="fallback" href="#contact">Escribime por correo.</a></span>
+          </p>
+        </form>
         <div class="actions">
           <button type="button" class="action" data-mail>
             <span class="lang-en">Contact me</span>

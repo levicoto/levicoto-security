@@ -282,6 +282,8 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
 .go a:focus-visible,
 .action:hover,
 .action:focus-visible,
+.form-status a:hover,
+.form-status a:focus-visible,
 .site-footer a:hover,
 .site-footer a:focus-visible {
   color: #fff;
@@ -380,6 +382,128 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
   scroll-margin-top: 5.5rem;
 }
 
+.inquiry {
+  display: grid;
+  gap: 1.35rem;
+  width: 100%;
+  max-width: var(--measure);
+  margin: 0 0 3.25rem;
+  padding: 0;
+  border: 0;
+}
+
+.gotcha {
+  display: none !important;
+}
+
+.field {
+  display: grid;
+  gap: 0.4rem;
+  min-width: 0;
+  margin: 0;
+}
+
+.field label {
+  color: var(--muted);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  padding: 0.55rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+  color: var(--fg);
+  color-scheme: dark;
+  font: inherit;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.field textarea {
+  min-height: 8.5rem;
+  resize: vertical;
+}
+
+.field select {
+  padding-right: 1.5rem;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.2 L6 6.2 L11 1.2' fill='none' stroke='%23ffffff' stroke-width='1.2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.1rem center;
+  background-size: 0.7rem auto;
+}
+
+.field select option {
+  background-color: #000;
+  color: #fff;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  border-bottom-color: var(--blue);
+}
+
+.field input:-webkit-autofill,
+.field textarea:-webkit-autofill {
+  -webkit-text-fill-color: #fff;
+  caret-color: #fff;
+  box-shadow: 0 0 0 1000px #000 inset;
+}
+
+.inquiry > .action {
+  justify-self: start;
+  margin-top: 0.15rem;
+}
+
+.inquiry > .action:disabled,
+.inquiry > .action:disabled:hover,
+.inquiry > .action:disabled:focus-visible {
+  color: var(--muted);
+  text-decoration-color: var(--line);
+  cursor: default;
+}
+
+.form-status {
+  margin: 0;
+  max-width: var(--measure);
+  color: var(--fg);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+.form-status:focus {
+  outline: none;
+}
+
+.form-status:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.form-status a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: #fff;
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1px;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -470,6 +594,10 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
   .contact {
     padding-top: 4.5rem;
   }
+
+  .inquiry {
+    margin-bottom: 2.75rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -505,14 +633,27 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
   .ask,
   .service h3,
   .price,
-  .action {
+  .action,
+  .field input,
+  .field textarea,
+  .field select,
+  .form-status,
+  .form-status a {
     color: #000;
+  }
+
+  .field input,
+  .field textarea,
+  .field select {
+    border-bottom-color: #000;
+    background-image: none;
   }
 
   .lede,
   .situations h2,
   .services h2,
   .contact h2,
+  .field label,
   .go a,
   .site-footer,
   .scope li::marker {
