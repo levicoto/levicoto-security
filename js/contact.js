@@ -33,27 +33,57 @@ var SIGNAL_URL = "[signal]";
   var form = document.querySelector(".inquiry");
   if (!form) return;
 
-  var service = form.querySelector("select[name='service']");
   var language = form.querySelector("input[name='language']");
   var submit = form.querySelector("[type='submit']");
   var success = form.querySelector("[data-success]");
   var failure = form.querySelector("[data-error]");
+  var again = form.querySelector("[data-again]");
   var fallbacks = form.querySelectorAll("a.fallback");
+  var keys = ["name", "contact", "situation", "service"];
+  var messages = {
+    name: { en: "Add your name.", es: "Agregá tu nombre." },
+    contact: { en: "Tell me how to reach you.", es: "Decime cómo contactarte." },
+    situation: { en: "Tell me what happened.", es: "Contame qué pasó." },
+    service: { en: "Choose a service.", es: "Elegí un servicio." }
+  };
+  var touched = {};
+  var submitted = false;
+
+  function filled(key) {
+    if (key === "service") return !!form.querySelector("input[name='service']:checked");
+    var field = form.querySelector("[name='" + key + "']");
+    return !!(field && field.value.trim());
+  }
+
+  function renderError(key) {
+    var show = (touched[key] || submitted) && !filled(key);
+    var box = form.querySelector('[data-field="' + key + '"]');
+    var note = form.querySelector('[data-error-for="' + key + '"]');
+    if (box) box.classList.toggle("is-invalid", !!show);
+    if (note) {
+      note.hidden = !show;
+      note.textContent = show ? messages[key][lang()] : "";
+    }
+    var control = key === "service" ? box : form.querySelector("[name='" + key + "']");
+    if (control) control.setAttribute("aria-invalid", show ? "true" : "false");
+  }
+
+  function renderErrors() {
+    for (var i = 0; i < keys.length; i++) renderError(keys[i]);
+  }
+
+  function clearErrors() {
+    touched = {};
+    submitted = false;
+    for (var i = 0; i < keys.length; i++) renderError(keys[i]);
+  }
 
   function syncLanguage() {
     var current = lang();
     if (language) language.value = current;
-    if (service) {
-      var options = service.querySelectorAll("option[data-en]");
-      for (var i = 0; i < options.length; i++) {
-        var label = options[i].getAttribute(current === "es" ? "data-es" : "data-en");
-        if (label) options[i].textContent = label;
-      }
-    }
     var href = mailtoHref();
-    for (var j = 0; j < fallbacks.length; j++) {
-      fallbacks[j].setAttribute("href", href);
-    }
+    for (var i = 0; i < fallbacks.length; i++) fallbacks[i].setAttribute("href", href);
+    renderErrors();
   }
 
   syncLanguage();
@@ -64,6 +94,27 @@ var SIGNAL_URL = "[signal]";
       syncLanguage();
     });
   }
+
+  form.addEventListener("blur", function (event) {
+    var box = event.target.closest ? event.target.closest("[data-field]") : null;
+    if (!box) return;
+    var key = box.getAttribute("data-field");
+    touched[key] = true;
+    renderError(key);
+  }, true);
+
+  form.addEventListener("input", function (event) {
+    var box = event.target.closest ? event.target.closest("[data-field]") : null;
+    if (!box) return;
+    var key = box.getAttribute("data-field");
+    if (touched[key] || submitted) renderError(key);
+  });
+
+  form.addEventListener("change", function (event) {
+    if (!event.target || event.target.name !== "service") return;
+    touched.service = true;
+    renderError("service");
+  });
 
   function show(el) {
     if (!el) return;
@@ -82,14 +133,43 @@ var SIGNAL_URL = "[signal]";
     else submit.removeAttribute("aria-busy");
   }
 
+  function validate() {
+    submitted = true;
+    var first = null;
+    for (var i = 0; i < keys.length; i++) {
+      renderError(keys[i]);
+      if (!filled(keys[i]) && !first) first = keys[i];
+    }
+    if (!first) return true;
+    var target = first === "service"
+      ? form.querySelector("input[name='service']")
+      : form.querySelector("[name='" + first + "']");
+    if (target) target.focus();
+    return false;
+  }
+
+  if (again) {
+    again.addEventListener("click", function () {
+      form.classList.remove("is-sent");
+      hide(success);
+      form.reset();
+      syncLanguage();
+      clearErrors();
+      var name = form.querySelector("#inquiry-name");
+      if (name) name.focus();
+    });
+  }
+
+  if (!window.fetch || !window.FormData) return;
+  form.noValidate = true;
+
   form.addEventListener("submit", function (event) {
-    if (!window.fetch || !window.FormData) return;
     event.preventDefault();
     syncLanguage();
-    setSending(true);
-    hide(success);
     hide(failure);
+    if (!validate()) return;
 
+    setSending(true);
     var controller = typeof AbortController === "function" ? new AbortController() : null;
     var timer = controller ? window.setTimeout(function () { controller.abort(); }, 20000) : 0;
     var options = {
@@ -103,6 +183,8 @@ var SIGNAL_URL = "[signal]";
       if (!response.ok) throw new Error("Request failed");
       form.reset();
       syncLanguage();
+      clearErrors();
+      form.classList.add("is-sent");
       show(success);
     }).catch(function () {
       show(failure);

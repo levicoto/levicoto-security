@@ -18,6 +18,8 @@
     <meta property="og:locale" content="en">
     <meta property="og:locale:alternate" content="es">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="preload" href="fonts/inter-latin-300.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/inter-latin-500.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="css/styles.css">
@@ -157,56 +159,96 @@
 
       <section class="contact" id="contact" aria-labelledby="contact-heading">
         <h2 id="contact-heading"><span class="lang-en">Contact</span><span class="lang-es">Contacto</span></h2>
-        <form class="inquiry" action="https://formspree.io/f/mgakydpg" method="POST" accept-charset="UTF-8">
+        <form class="inquiry" action="https://formspree.io/f/mgakydpg" method="POST" accept-charset="UTF-8" aria-labelledby="inquiry-heading">
+          <div class="inquiry-glow" aria-hidden="true"></div>
+          <div class="mark3d" aria-hidden="true">
+            <div class="cube"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
           <input type="hidden" name="_subject" value="Nueva solicitud — Coto Secure">
           <input type="hidden" name="language" value="en">
           <input class="gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <div class="field">
+          <div class="inquiry-head">
+            <h3 id="inquiry-heading">
+              <span class="lang-en">Tell me your situation</span>
+              <span class="lang-es">Contame tu situación</span>
+            </h3>
+          </div>
+          <div class="field" data-field="name">
             <label for="inquiry-name">
+              <span class="idx" aria-hidden="true">01</span>
               <span class="lang-en">Name</span>
               <span class="lang-es">Nombre</span>
             </label>
-            <input id="inquiry-name" name="name" type="text" required autocomplete="name" autocapitalize="words">
+            <input id="inquiry-name" name="name" type="text" required autocomplete="name" autocapitalize="words" aria-describedby="inquiry-name-error">
+            <p class="field-error" id="inquiry-name-error" data-error-for="name" hidden></p>
           </div>
-          <div class="field">
+          <div class="field" data-field="contact">
             <label for="inquiry-contact">
+              <span class="idx" aria-hidden="true">02</span>
               <span class="lang-en">How to reach you (email, Signal or phone)</span>
               <span class="lang-es">Cómo contactarte (correo, Signal o teléfono)</span>
             </label>
-            <input id="inquiry-contact" name="contact" type="text" required autocapitalize="off" autocorrect="off" spellcheck="false">
+            <input id="inquiry-contact" name="contact" type="text" required autocapitalize="off" autocorrect="off" spellcheck="false" aria-describedby="inquiry-contact-error">
+            <p class="field-error" id="inquiry-contact-error" data-error-for="contact" hidden></p>
           </div>
-          <div class="field">
+          <div class="field" data-field="situation">
             <label for="inquiry-situation">
+              <span class="idx" aria-hidden="true">03</span>
               <span class="lang-en">Your situation</span>
               <span class="lang-es">Tu situación</span>
             </label>
-            <textarea id="inquiry-situation" name="situation" rows="5" required></textarea>
+            <textarea id="inquiry-situation" name="situation" rows="5" required aria-describedby="inquiry-situation-error"></textarea>
+            <p class="field-error" id="inquiry-situation-error" data-error-for="situation" hidden></p>
           </div>
-          <div class="field">
-            <label for="inquiry-service">
-              <span class="lang-en">Service of interest</span>
-              <span class="lang-es">Servicio que te interesa</span>
-            </label>
-            <select id="inquiry-service" name="service" required>
-              <option value="" selected disabled hidden></option>
-              <option value="Exposure Assessment" data-en="Exposure Assessment" data-es="Diagnóstico de Exposición">Exposure Assessment</option>
-              <option value="Personal Hardening" data-en="Personal Hardening" data-es="Blindaje Personal">Personal Hardening</option>
-              <option value="Incident Response" data-en="Incident Response" data-es="Respuesta a Incidentes">Incident Response</option>
-              <option value="Not sure" data-en="Not sure" data-es="No estoy seguro">Not sure</option>
-            </select>
+          <fieldset class="field" data-field="service" aria-describedby="inquiry-service-error">
+            <legend>
+              <span class="label-line">
+                <span class="idx" aria-hidden="true">04</span>
+                <span class="lang-en">Service of interest</span>
+                <span class="lang-es">Servicio que te interesa</span>
+              </span>
+            </legend>
+            <div class="pills">
+              <label class="pill">
+                <input type="radio" name="service" value="Exposure Assessment" required>
+                <span class="pill-face"><span class="lang-en">Exposure Assessment</span><span class="lang-es">Diagnóstico de Exposición</span></span>
+              </label>
+              <label class="pill">
+                <input type="radio" name="service" value="Personal Hardening" required>
+                <span class="pill-face"><span class="lang-en">Personal Hardening</span><span class="lang-es">Blindaje Personal</span></span>
+              </label>
+              <label class="pill">
+                <input type="radio" name="service" value="Incident Response" required>
+                <span class="pill-face"><span class="lang-en">Incident Response</span><span class="lang-es">Respuesta a Incidentes</span></span>
+              </label>
+              <label class="pill">
+                <input type="radio" name="service" value="Not sure" required>
+                <span class="pill-face"><span class="lang-en">Not sure</span><span class="lang-es">No estoy seguro</span></span>
+              </label>
+            </div>
+            <p class="field-error" id="inquiry-service-error" data-error-for="service" hidden></p>
+          </fieldset>
+          <div class="inquiry-foot">
+            <button type="submit" class="send">
+              <span class="lang-en">Send</span>
+              <span class="lang-es">Enviar</span>
+            </button>
+            <p class="form-status" data-error role="alert" tabindex="-1" hidden>
+              <span class="lang-en">It didn't send. <a class="fallback" href="#contact">Contact me by email.</a></span>
+              <span class="lang-es">No se envió. <a class="fallback" href="#contact">Escribime por correo.</a></span>
+            </p>
           </div>
-          <button type="submit" class="action">
-            <span class="lang-en">Send</span>
-            <span class="lang-es">Enviar</span>
-          </button>
-          <p class="form-status" data-success role="status" tabindex="-1" hidden>
-            <span class="lang-en">Thanks, I'll get back to you soon.</span>
-            <span class="lang-es">Gracias, te respondo pronto.</span>
-          </p>
-          <p class="form-status" data-error role="alert" tabindex="-1" hidden>
-            <span class="lang-en">It didn't send. <a class="fallback" href="#contact">Contact me by email.</a></span>
-            <span class="lang-es">No se envió. <a class="fallback" href="#contact">Escribime por correo.</a></span>
-          </p>
+          <div class="sent" data-success role="status" tabindex="-1" hidden>
+            <div class="sent-mark" aria-hidden="true"></div>
+            <p class="sent-copy">
+              <span class="lang-en">Thanks, I'll get back to you soon.</span>
+              <span class="lang-es">Gracias, te respondo pronto.</span>
+            </p>
+            <button type="button" class="again" data-again>
+              <span class="lang-en">Send another</span>
+              <span class="lang-es">Enviar otra</span>
+            </button>
+          </div>
         </form>
         <div class="actions">
           <button type="button" class="action" data-mail>
