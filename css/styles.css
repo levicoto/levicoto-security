@@ -34,6 +34,8 @@
   --measure: 38rem;
   --page: 72rem;
   --gutter: clamp(1.25rem, 4vw, 2.75rem);
+  --section: 6rem;
+  --rhythm: 1.5rem;
 }
 
 *,
@@ -195,10 +197,10 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
   min-height: calc(100svh - 4.5rem);
   min-height: calc(100svh - 4.5rem - env(safe-area-inset-top));
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(18rem, 26rem);
-  align-items: center;
-  column-gap: clamp(2.75rem, 6vw, 7rem);
-  padding: 2.5rem 0 5.5rem;
+  grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 22rem);
+  align-items: end;
+  column-gap: 4.5rem;
+  padding: 2.5rem 0 var(--section);
 }
 
 .hero-glow {
@@ -213,25 +215,13 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
   pointer-events: none;
 }
 
-.hero-orbit {
-  position: absolute;
-  z-index: 0;
-  bottom: 14%;
-  left: 4%;
-  width: 11.5rem;
-  height: 7rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
 .hero-aside {
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 1.75rem;
+  align-items: flex-start;
+  gap: var(--rhythm);
   min-width: 0;
 }
 
@@ -250,7 +240,7 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
 
 .hero-tag {
   display: inline-flex;
-  margin: 0 0 1.35rem;
+  margin: 0 0 var(--rhythm);
   padding: 0.42rem 0.8rem;
   border: 1px solid rgba(255, 255, 255, 0.32);
   border-radius: 999px;
@@ -274,7 +264,7 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
 
 .lede {
   margin: 0;
-  max-width: 22rem;
+  max-width: none;
   color: var(--muted);
   font-size: 1.0625rem;
   font-weight: 400;
@@ -283,14 +273,14 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
 }
 
 .situations {
-  padding: 2.5rem 0 2rem;
+  padding: var(--section) 0 0;
   scroll-margin-top: 5rem;
 }
 
 .situations h2,
 .services h2,
 .contact h2 {
-  margin: 0 0 1.5rem;
+  margin: 0 0 var(--rhythm);
   color: var(--muted);
   font-size: 0.75rem;
   font-weight: 500;
@@ -310,7 +300,7 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
   column-gap: 1.5rem;
   align-items: center;
   margin: 0;
-  padding: 1.2rem 0;
+  padding: var(--rhythm) 0;
   border-top: 1px solid var(--line);
   background: none;
 }
@@ -337,8 +327,11 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
 
 .go {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 0.35rem 1.25rem;
 }
 
 .go a {
@@ -370,11 +363,11 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
 }
 
 .services {
-  padding: 6.5rem 0 0;
+  padding: var(--section) 0 0;
 }
 
 .service {
-  padding: 3.5rem 0;
+  padding: 3rem 0;
   border-top: 1px solid var(--line);
   background: none;
   scroll-margin-top: 5.5rem;
@@ -397,8 +390,8 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   column-gap: 2rem;
-  align-items: center;
-  margin-bottom: 1.5rem;
+  align-items: last baseline;
+  margin-bottom: var(--rhythm);
 }
 
 .service h3 .idx {
@@ -465,7 +458,7 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
 }
 
 .contact {
-  padding: 5.5rem 0 1.5rem;
+  padding: var(--section) 0 var(--rhythm);
   scroll-margin-top: 5.5rem;
 }
 
@@ -476,8 +469,8 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
   flex-direction: column;
   gap: 1.75rem;
   width: 100%;
-  max-width: 40rem;
-  margin: 1rem 0 5rem;
+  max-width: none;
+  margin: 0 0 3rem;
   padding: 2.4rem 2rem 2.15rem;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.16);
@@ -899,7 +892,7 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
     grid-template-columns: 1fr;
     align-content: center;
     justify-items: start;
-    row-gap: 1.5rem;
+    row-gap: var(--rhythm);
     min-height: calc(100svh - 4.25rem);
   }
 
@@ -911,13 +904,6 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
     top: 8%;
     width: 16rem;
     height: 16rem;
-  }
-
-  .hero-orbit {
-    width: 8rem;
-    height: 5rem;
-    bottom: 8%;
-    left: 0;
   }
 
   .hero-mark {
@@ -941,7 +927,7 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
     grid-template-areas:
       "idx ask"
       "go go";
-    row-gap: 0.35rem;
+    row-gap: 0.75rem;
     align-items: start;
     padding: 1.15rem 0;
   }
@@ -952,12 +938,13 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
 
   .service-head {
     grid-template-columns: 1fr;
-    row-gap: 0.65rem;
+    row-gap: 0.75rem;
     align-items: start;
   }
 
   .go {
-    align-items: flex-start;
+    align-items: baseline;
+    justify-content: flex-start;
   }
 
   .go a {
@@ -1034,7 +1021,6 @@ html[data-lang="es"] .lang-switch [data-set-lang="es"] {
   .inquiry-glow,
   .mark3d,
   .hero-glow,
-  .hero-orbit,
   .hero-mark {
     display: none !important;
   }
